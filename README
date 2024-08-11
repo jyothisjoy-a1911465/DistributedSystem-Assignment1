@@ -53,9 +53,9 @@ This project implements a simple Java RMI (Remote Method Invocation) application
 We have the import statements ,then we declares the interface, which further have the method definitions
 > pushValue = help to push the element into the stack
 > pushOperations = help to perform the string operations like the lcm,gcd,min ,max thats being assigned as the tasks
-> pop = here the pop method is used pop the top value thats present in the 
-> isEmpty = This is used to check whether the stack is empty or the time of the method is called 
-> delayPop = this is used to delay th epo operation thats bein the test cases thats being performed by the client
+> pop = here the pop method is used pop the top value thats present in the stack
+> isEmpty = This is used to check whether the stack is empty at the time of the method is called 
+> delayPop = this is used to delay the pop operation the test cases thats being performed by the client
 
 
 2. **CalculatorImplementation.java**:
@@ -63,7 +63,7 @@ We have the import statements ,then we declares the interface, which further hav
  Here its actually responsible to provide the functionality to all the methods that we have declared in the calculator.java file 
  > the clientstacks is a hash map that maps to the clientid and the stack integer that holds all the integer values that are being pushed by the client
  > Constructor initializes the hashmap
- > getclientstack is used to get the stack that is specified clent
+ > getclientstack is used to get the stack that is specified client
  >the pushvalue,pushoperation,pop,isempty,delaypop are being explained here for the operations
  > the methods to handle lcm and gcd are being explained here 
 
@@ -72,7 +72,7 @@ We have the import statements ,then we declares the interface, which further hav
 
 This is basically responsible for setting up the RMI which actually host the calculator,creates  an instance and registers it with the registry and makes it available to all the clients to access remotely
 > class defined with an empty constructor
->main method the process beginsand it initializes the server and create necessary objects and bind them to the RMI registry
+>main method the process begins and it initializes the server and create necessary objects and bind them to the RMI registry
 >instance of the implementation is created -provides the actual functionality for the remote methods
 >exportobject method of unicastremoteobject is used to make the object available to recieve incoming methods calls
 >by calling the rmiregistry command we start the rmi seperately 
@@ -87,7 +87,7 @@ This is basically responsible for setting up the RMI which actually host the cal
 This is responsible for interacting with the remote calculator hosted by the RMI it then connects to the rmi registry retrives the remote Calculator and then perform various operations
 
 > Class declaration,mention the client id which is used to manage the operations run on th eserver
-> We need to connect this to the rmi registry allowing to incoke the methods if it was a local object
+> We need to connect this to the rmi registry allowing to invoke the methods if it was a local object
 >Performing multiple operations (each 1 test cases)
 > Ends the test cases with the exceptions
 
@@ -111,21 +111,83 @@ Server ready
 >>>>>>>>>>>>>Client
 
 (base) jyothisjoy@jyothiss-MacBook-Air calculator % java CalculatorClient
+Test case 1.
+
 Testing min operation
 Expected min result: 5, Actual: 5
+
+Test case 2.
+
 Testing min operation with one value
 Expected min result: 42, Actual: 42
+
+Test case 3.
+
 Expected exception caught for popping from an empty stack: java.rmi.ServerException: RemoteException occurred in server thread; nested exception is: 
         java.rmi.RemoteException: Stack is empty
+
+Test case 4.
+
 Expected exception caught for invalid operation: java.rmi.ServerException: RemoteException occurred in server thread; nested exception is: 
         java.rmi.RemoteException: Invalid operator
+
+Test case 5.
+
 Testing LCM operation with one value
 Expected LCM result: 13, Actual: 13
+
+Test case 6.
+
 Testing GCD operation with identical values
 Expected GCD result: 9, Actual: 9
+
+Test case 7.
+
 Testing delayPop with 2 seconds delay
+
+Test case 8.
+
 Is stack empty? true
 All tests completed successfully.
+
+Test case 9.
+
+Expected result after sequence: 10, Actual: 10
+
+Test case 10.
+
+Expected exception caught for max operation on empty stack: java.rmi.ServerException: RemoteException occurred in server thread; nested exception is: 
+        java.rmi.RemoteException: Stack is empty
+
+Test case 11.
+
+Testing min operation with negative values
+Expected min result: -10, Actual: -10
+
+Test case 12.
+
+Expected pop results: 14, 21, 7 | Actual: 14, 21, 7
+
+Test case 13.
+
+Testing GCD operation with mixed values
+Expected GCD result: 5, Actual: 5
+
+Test case 14.
+
+Testing LCM operation with larger values
+Expected LCM result: 60, Actual: 60
+
+Test case 15.
+
+Expected result: 32, Actual: 32
+
+Test case 16.
+
+Testing combined min and max operations
+Expected min result: 50, Actual: 50
+Expected max result: 1000, Actual: 1000
+
 (base) jyothisjoy@jyothiss-MacBook-Air calculator % 
 
 
