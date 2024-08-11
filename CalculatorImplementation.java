@@ -21,30 +21,36 @@ public class CalculatorImplementation implements Calculator {
         getClientStack(clientId).push(val);
     }
 //operations related to the values pushed
-    @Override
-    public synchronized void pushOperation(String clientId, String operator) throws RemoteException {
-        Stack<Integer> stack = getClientStack(clientId);
-        List<Integer> values = new ArrayList<>();
-        while (!stack.isEmpty()) {
-            values.add(stack.pop());
-        }
-        switch (operator.toLowerCase()) {
-            case "min":
-                stack.push(values.stream().min(Integer::compare).orElse(0));
-                break;
-            case "max":
-                stack.push(values.stream().max(Integer::compare).orElse(0));
-                break;
-            case "lcm":
-                stack.push(lcm(values));
-                break;
-            case "gcd":
-                stack.push(gcd(values));
-                break;
-            default:
-                throw new RemoteException("Invalid operator");
-        }
+@Override
+public synchronized void pushOperation(String clientId, String operator) throws RemoteException {
+    Stack<Integer> stack = getClientStack(clientId);
+    if (stack.isEmpty()) {
+        throw new RemoteException("Stack is empty");
     }
+
+    List<Integer> values = new ArrayList<>();
+    while (!stack.isEmpty()) {
+        values.add(stack.pop());
+    }
+
+    switch (operator.toLowerCase()) {
+        case "min":
+            stack.push(values.stream().min(Integer::compare).orElse(0));
+            break;
+        case "max":
+            stack.push(values.stream().max(Integer::compare).orElse(0));
+            break;
+        case "lcm":
+            stack.push(lcm(values));
+            break;
+        case "gcd":
+            stack.push(gcd(values));
+            break;
+        default:
+            throw new RemoteException("Invalid operator");
+    }
+}
+
 //to pop an element out of the stack
     @Override
     public synchronized int pop(String clientId) throws RemoteException {
