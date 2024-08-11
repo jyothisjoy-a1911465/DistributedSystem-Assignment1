@@ -1,0 +1,99 @@
+# Java RMI Calculator Project
+
+This project implements a simple Java RMI (Remote Method Invocation) application, where each client interacts with its own stack on the server. The project includes the server-side implementation, client-side implementation, and automated testing using JUnit.
+
+## Project Structure
+
+The project consists of the following key files:
+- **Calculator.java**: The remote interface defining the methods that can be invoked by the client.
+- **CalculatorImplementation.java**: The server-side implementation of the `Calculator` interface, managing individual stacks for each client.
+- **CalculatorServer.java**: The server application that binds the `CalculatorImplementation` to the RMI registry.
+- **CalculatorClient.java**: The client application that interacts with the server, including embedded tests for operations and edge cases.
+
+## Features
+
+- **Client-Specific Stacks**: Each client has its own stack on the server, ensuring isolated operations.
+- **Supported Operations**:
+  - `min`: Computes the minimum value from the stack.
+  - `max`: Computes the maximum value from the stack.
+  - `lcm`: Computes the Least Common Multiple (LCM) of the values in the stack.
+  - `gcd`: Computes the Greatest Common Divisor (GCD) of the values in the stack.
+  - `pop`: Removes and returns the top value of the stack.
+  - `delayPop`: Removes and returns the top value after a specified delay.
+
+## Setup and Installation
+
+1. **Clone the Repository**:
+    ```bash
+    git clone https://github.com/yourusername/yourrepository.git
+    cd yourrepository
+    ```
+
+2. **Compile the Java Files**:
+    ```bash
+    javac *.java
+    ```
+
+3. **Start the RMI Registry**:
+    ```bash
+    rmiregistry &
+    ```
+
+4. **Run the Server**:
+    ```bash
+    java CalculatorServer
+    ```
+
+5. **Run the Client**:
+    ```bash
+    java CalculatorClient
+    ```
+
+## Usage
+
+### Running the Server
+The server needs to be started first. It will register the `CalculatorImplementation` with the RMI registry, making it available for client requests.
+
+### Running the Client
+The client can be run to perform various operations on its own stack. The client includes automated tests that validate the functionality of the operations.
+
+### Sample Operations
+Here are examples of how the client interacts with the server:
+
+- **Push Values and Perform Operations**:
+    ```java
+    stub.pushValue(clientId, 20);
+    stub.pushValue(clientId, 5);
+    stub.pushOperation(clientId, "min");
+    int minResult = stub.pop(clientId); // Should return 5
+    ```
+
+- **Edge Case Handling**:
+    ```java
+    stub.pushValue(clientId, 42);
+    stub.pushOperation(clientId, "min");
+    int result = stub.pop(clientId); // Should return 42
+    ```
+
+## Testing
+
+The `CalculatorClient` includes embedded JUnit-like tests to verify the functionality of the stack operations. These tests include:
+
+- **Normal Operations**: Testing standard scenarios such as `min`, `max`, `lcm`, and `gcd` with multiple values.
+- **Edge Cases**: Testing operations with a minimal number of values, such as a single value.
+- **Failure Cases**: Testing how the application handles invalid operations or attempts to pop from an empty stack.
+
+To run the tests, simply execute the `CalculatorClient` class. The results of the tests will be printed to the console.
+
+## Known Issues
+
+- The LCM operation with a single value will return the value itself, which is correct but may not be typical usage.
+- Ensure that the RMI registry is running before starting the server to avoid connection issues.
+
+## Contributing
+
+Contributions are welcome! Please fork this repository and submit pull requests with descriptive commit messages.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
