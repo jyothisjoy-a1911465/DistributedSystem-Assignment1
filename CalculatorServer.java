@@ -9,7 +9,7 @@ public class CalculatorServer {
         try {
             // the actual logic of the calculator methods will be defined for the processsing
             CalculatorImplementation obj = new CalculatorImplementation();
-            //objectavailable when there is an RMI call (0) available port for the process
+            //object available when there is an RMI call (0) available port for the process
             Calculator stub = (Calculator) UnicastRemoteObject.exportObject(obj, 0);
             // usually it run on the specified port now that allow the client to take up the remote objects by the name
             Registry registry = LocateRegistry.getRegistry();
